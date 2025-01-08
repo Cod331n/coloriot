@@ -1,4 +1,4 @@
-package de.seperinous.merger.utility;
+package ru.cod331n.coloriot.util;
 
 import lombok.Setter;
 import lombok.experimental.UtilityClass;
@@ -16,10 +16,10 @@ public class Tasks {
     private static JavaPlugin javaPlugin;
 
     public @NotNull BukkitTask after(int delay, boolean async, @NotNull Consumer<BukkitTask> handler) {
-        val runnable = new BukkitRunnable() {
+        final BukkitRunnable runnable = new BukkitRunnable() {
             @Override
             public void run() {
-                handler.accept(task);
+                handler.accept(getTaskFromRunnable(this));
             }
         };
 
@@ -48,7 +48,7 @@ public class Tasks {
         val runnable = new BukkitRunnable() {
             @Override
             public void run() {
-                handler.accept(task);
+                handler.accept(getTaskFromRunnable(this));
             }
         };
 
@@ -84,9 +84,17 @@ public class Tasks {
                     return;
                 }
 
-                handler.accept(task);
+                handler.accept(getTaskFromRunnable(this));
                 count++;
             }
         }.runTaskTimer(javaPlugin, delay, period);
+    }
+
+    private @NotNull BukkitTask getTaskFromRunnable(@NotNull BukkitRunnable runnable) {
+        try {
+            return (BukkitTask) ReflectionUtils.getPrivateField(runnable, "task");
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException("Couldn't get field 'task'", e);
+        }
     }
 }

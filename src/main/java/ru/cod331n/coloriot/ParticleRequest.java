@@ -1,4 +1,4 @@
-package de.seperinous.merger.particle;
+package ru.cod331n.coloriot;
 
 import lombok.AccessLevel;
 import lombok.Getter;

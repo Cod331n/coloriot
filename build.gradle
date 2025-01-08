@@ -21,7 +21,13 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.32")
     annotationProcessor("org.projectlombok:lombok:1.18.32")
 
-    compileOnly("io.papermc.paper:paper-api:1.12.2-R0.1-SNAPSHOT")
+    compileOnly("com.destroystokyo.paper:paper-api:1.12.2-R0.1-SNAPSHOT")
+    compileOnly("com.github.azbh111:craftbukkit-1.12.2:R")
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    archiveClassifier.set('sources')
 }
 
 publishing {

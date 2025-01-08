@@ -1,4 +1,4 @@
-package de.seperinous.merger.utility;
+package ru.cod331n.coloriot.util;
 
 import lombok.experimental.UtilityClass;
 import net.minecraft.server.v1_12_R1.Packet;

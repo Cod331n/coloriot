@@ -1,5 +1,4 @@
-package de.seperinous.merger.particle;
-
+package ru.cod331n.coloriot;
 
 import lombok.NoArgsConstructor;
 import net.minecraft.server.v1_12_R1.MinecraftServer;
@@ -12,9 +11,21 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Класс предоставляет небольшое количество готовых решений для создания форм из партиклов.
+ * Если необходимы другие формы, можно комбинировать их.
+ */
 @NoArgsConstructor
 public class ParticleManager {
 
+    /**
+     * Комбинирует несколько ParticleResponse в один.
+     * Функция отправляет пакет с партиклами один раз для игрока, поэтому
+     * лучше использовать комбинирование партиклов, если необходимо, через неё.
+     *
+     * @param other Массив ParticleResponse для комбинирования.
+     * @return Новый объект ParticleResponse, содержащий все пакеты из переданных ParticleResponse.
+     */
     public @NotNull ParticleResponse combine(@NotNull ParticleResponse... other) {
         List<Packet<?>> combinedPackets = new ArrayList<>();
 
@@ -25,6 +36,15 @@ public class ParticleManager {
         return new ParticleResponse(combinedPackets);
     }
 
+    /**
+     * Создает луч частиц между двумя локациями.
+     *
+     * @param particle  Параметры для создания частиц.
+     * @param from      Начальная точка луча.
+     * @param to        Конечная точка луча.
+     * @param particles Количество частиц.
+     * @return Объект ParticleResponse, содержащий пакеты с частицами.
+     */
     public @NotNull ParticleResponse ray(
             @NotNull ParticleRequest particle,
             @NotNull Location from,
@@ -60,6 +80,16 @@ public class ParticleManager {
         return new ParticleResponse(packets);
     }
 
+    /**
+     * Создает сферу частиц в случайных точках.
+     *
+     * @param particle  Параметры для создания частиц.
+     * @param center    Центр сферы.
+     * @param radius    Радиус сферы.
+     * @param particles Количество частиц.
+     * @param hollow    Флаг, указывающий на необходимость создания полой сферы.
+     * @return Объект ParticleResponse, содержащий пакеты с частицами.
+     */
     public @NotNull ParticleResponse randomSphere(
             @NotNull ParticleRequest particle,
             @NotNull Location center,
@@ -96,6 +126,16 @@ public class ParticleManager {
         return new ParticleResponse(packets);
     }
 
+    /**
+     * Создает сферу частиц, равномерно распределенных по поверхности.
+     *
+     * @param particle  Параметры для создания частиц.
+     * @param center    Центр сферы.
+     * @param radius    Радиус сферы.
+     * @param particles Количество частиц.
+     * @param hollow    Флаг, указывающий на необходимость создания полой сферы.
+     * @return Объект ParticleResponse, содержащий пакеты с частицами.
+     */
     public @NotNull ParticleResponse intervalSphere(
             @NotNull ParticleRequest particle,
             @NotNull Location center,

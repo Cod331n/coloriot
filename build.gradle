@@ -1,0 +1,37 @@
+plugins {
+    id("java")
+    id("maven-publish")
+}
+
+group = "ru.cod331n"
+version = "1.0.0"
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "papermc"
+        url = uri("https://repo.papermc.io/repository/maven-public/")
+    }
+}
+
+dependencies {
+    compileOnly("org.jetbrains:annotations:24.0.1")
+    annotationProcessor("org.jetbrains:annotations:24.0.1")
+
+    compileOnly("org.projectlombok:lombok:1.18.32")
+    annotationProcessor("org.projectlombok:lombok:1.18.32")
+
+    compileOnly("io.papermc.paper:paper-api:1.12.2-R0.1-SNAPSHOT")
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+                    groupId = "com.github.Cod331n"
+            artifactId = "coloriot"
+            version = "1.0.0"
+            artifact sourcesJar
+        }
+    }
+}

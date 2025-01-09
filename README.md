@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.Cod331n:coloriot:v1.0.0")
+    implementation("com.github.Cod331n:coloriot:v1.0.1")
 }
 ```
 

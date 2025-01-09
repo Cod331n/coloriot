@@ -173,4 +173,50 @@ public class ParticleManager {
 
         return new ParticleResponse(packets);
     }
+
+    /**
+     * Создает прямоугольник из частиц, равномерно распределённых по его границам.
+     * Центр прямоугольника будет использоваться как начальная точка.
+     *
+     * @param particle  Параметры для создания частиц.
+     * @param center    Центр прямоугольника.
+     * @param width     Ширина прямоугольника.
+     * @param height    Высота прямоугольника.
+     * @param depth     Глубина прямоугольника.
+     * @param particles Количество частиц.
+     * @return Объект ParticleResponse, содержащий пакеты с частицами.
+     */
+    public @NotNull ParticleResponse rectangle(
+            @NotNull ParticleRequest particle,
+            @NotNull Location center,
+            double width,
+            double height,
+            double depth,
+            int particles
+    ) {
+        if (width <= 0 || height <= 0 || depth <= 0 || particles <= 0) {
+            MinecraftServer.LOGGER.warn("Couldn't make particle rectangle");
+            return new ParticleResponse(new ArrayList<>());
+        }
+
+        List<Packet<?>> packets = new LinkedList<>();
+
+        int parts = (int) Math.cbrt(particles);
+
+        for (int i = 0; i < parts; i++) {
+            double x = center.getX() - (width / 2) + (i * width / parts);
+            for (int j = 0; j < parts; j++) {
+                double y = center.getY() - (height / 2) + (j * height / parts);
+                for (int k = 0; k < parts; k++) {
+                    double z = center.getZ() - (depth / 2) + (k * depth / parts);
+                    packets.add(
+                            particle.location(new Location(center.getWorld(), x, y, z))
+                                    .toPacket()
+                    );
+                }
+            }
+        }
+
+        return new ParticleResponse(packets);
+    }
 }

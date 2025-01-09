@@ -40,7 +40,7 @@ public class ParticleResponse {
                 players.add(player);
             }
         });
-        return Tasks.after(delay, task -> Packets.sendBulk(packets, players));
+        return Tasks.after(delay, runnable -> Packets.sendBulk(packets, players));
     }
 
     /**
@@ -54,7 +54,7 @@ public class ParticleResponse {
             @NotNull Collection<Player> players,
             int delay
     ) {
-        return Tasks.after(delay, task -> Packets.sendBulk(packets, players));
+        return Tasks.after(delay, runnable -> Packets.sendBulk(packets, players));
     }
 
     /**
@@ -68,7 +68,7 @@ public class ParticleResponse {
             @NotNull Player player,
             int delay
     ) {
-        return Tasks.after(delay, task -> Packets.sendBulk(packets, player));
+        return Tasks.after(delay, runnable -> Packets.sendBulk(packets, player));
     }
 
     /**
@@ -93,7 +93,7 @@ public class ParticleResponse {
                 players.add(player);
             }
         });
-        return Tasks.repeat(times, delay, period, task -> Packets.sendBulk(packets, players));
+        return Tasks.repeat(times, delay, period, runnable -> Packets.sendBulk(packets, players));
     }
 
     /**
@@ -112,7 +112,7 @@ public class ParticleResponse {
             int delay,
             int period
     ) {
-        return Tasks.repeat(times, delay, period, task -> Packets.sendBulk(packets, players));
+        return Tasks.repeat(times, delay, period, runnable -> Packets.sendBulk(packets, players));
     }
 
     /**
@@ -131,7 +131,7 @@ public class ParticleResponse {
             int delay,
             int period
     ) {
-        return Tasks.repeat(times, delay, period, task -> Packets.sendBulk(packets, player));
+        return Tasks.repeat(times, delay, period, runnable -> Packets.sendBulk(packets, player));
     }
 
     /**
@@ -154,7 +154,7 @@ public class ParticleResponse {
                 players.add(player);
             }
         });
-        return Tasks.every(delay, period, task -> Packets.sendBulk(packets, players));
+        return Tasks.every(delay, period, runnable -> Packets.sendBulk(packets, players));
     }
 
     /**
@@ -171,7 +171,7 @@ public class ParticleResponse {
             int delay,
             int period
     ) {
-        return Tasks.every(delay, period, task -> Packets.sendBulk(packets, players));
+        return Tasks.every(delay, period, runnable -> Packets.sendBulk(packets, players));
     }
 
     /**
@@ -188,6 +188,6 @@ public class ParticleResponse {
             int delay,
             int period
     ) {
-        return Tasks.every(delay, period, task -> Packets.sendBulk(packets, player));
+        return Tasks.every(delay, period, runnable -> Packets.sendBulk(packets, player));
     }
 }
